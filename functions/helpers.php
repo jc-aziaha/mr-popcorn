@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Cette fonction permet de debogger.
+     * Cette fonction permet d'afficher une valeur puis d'arrêter l'exécution du script, afin de débogguer.
      *
      * @param mixed $data
      * 
@@ -12,22 +12,26 @@
         die();
     }
 
-
     /**
-     * Cette fonction effectue la redirection vers une page.
+     * Cette fonction permet d'afficher une valeur sans arrêter l'exécution du script, afin de débogguer.
      *
-     * @param string $pageName
-     * @param null|integer|string|null $id
+     * @param mixed $data
      * 
      * @return void
      */
-    function redirectToPage(string $pageName, null|int|string $id = null): void {
+    function dump(mixed $data): void {
+        var_dump($data);
+    }
 
-        if ( isset($id) && !empty($id) ) {
-            header("Location: $pageName.php?film_id=$id");
-        } else {
-            header("Location: $pageName.php");
-        }
 
+    /**
+     * Cette fonction effectue une redirection vers la page renseignée, puis arrête arrête l'exécution du script.
+     *
+     * @param string $pageName
+     * 
+     * @return void
+     */
+    function redirectToPage(string $pageName): void {
+        header("Location: $pageName.php");
         die();
     }
