@@ -91,3 +91,30 @@
 
         return $film;
     }
+
+
+    /**
+     * Cette fonction permet de modifier un film en base de données.
+     *
+     * @param float|null $ratingRounded
+     * @param array $data
+     * 
+     * @return void
+     */
+    function updateFilm(?float $ratingRounded, int $filmId, array $data = []): void {
+        $db = connectToDb();
+
+        try {
+            $req = $db->prepare("UPDATE film SET title=:title, rating=:rating, comment=:comment, updated_at=now() WHERE id=:id");
+    
+            $req->bindValue(":title", $data['title']);
+            $req->bindValue(":rating", $ratingRounded);
+            $req->bindValue(":comment", $data['comment']);
+            $req->bindValue(":id", $filmId);
+    
+            $req->execute();
+            $req->closeCursor();
+        } catch (\PDOException $pdoException) {
+            throw $pdoException;
+        }
+    }

@@ -55,7 +55,7 @@ session_start();
                                     <hr>
                                     <div class="d-flex justify-content-start align-items-center gap-2">
                                         <a href="show.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-dark">Voir détails</a>
-                                        <a href="" class="btn btn-sm btn-secondary">Modifier</a>
+                                        <a href="edit.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-secondary">Modifier</a>
                                         <a href="" class="btn btn-sm btn-danger">Supprimer</a>
                                     </div>
                                 </article>

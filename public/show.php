@@ -10,26 +10,27 @@
      ****************************************************** 
      */
 
-    // 1. S'assurer que l'identifiant du film dont on souhaite consulter les détails a été envoyé via la méthode
+    // 1. S'assurer que l'identifiant du film dont on souhaite consulter les détails a été envoyé via la méthode GET
     if ( !isset($_GET['film_id']) || empty($_GET['film_id']) ) {
         redirectToPage('index');
     }
 
-    // dd('Continuer la partie');
-
     // 2. Récupérer l'identifiant du film, 
     // protéger le serveur contre les failles de type XSS,
-    // et le convertir la l'identifiant en entier
+    // et le convertir l'identifiant en entier
     $filmId = (int) htmlspecialchars($_GET['film_id']);
 
-    // 3. S'assurer que l'identifiant corresponde bien à un film qui existe dans la base de données, en le récupérant.
+    // 3. S'assurer que l'identifiant corresponde bien à un film qui existe en base de données, en le récupérant.
     $film = getFilm($filmId);
 
+    // 4. Si le film est introuvable, alors
     if ( false === $film ) {
+        // Effectuer une redirection vers la page d'accueil
+        // Puis, arrêter l'exaécution du script.
         redirectToPage('index');
     }
 
-    // 4. Afficher les détails du film, à l'écran de l'utilisateur.
+    // 5. Afficher les détails du film, à l'écran de l'utilisateur.
 ?>
 <?php
     $title = "Les détails du film:{$film['title']}";
