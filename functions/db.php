@@ -67,3 +67,27 @@
 
         return $films;
     }
+
+
+    /**
+     * Cette fonction récupère un film en particulier de la base de données.
+     *
+     * @param integer $filmId
+     * 
+     * @return array|bool
+     */
+    function getFilm(int $filmId): bool|array {
+        $db = connectToDb();
+
+        try {
+            $req = $db->prepare("SELECT * FROM film WHERE id=:id");
+            $req->bindValue(":id", $filmId);
+            $req->execute();
+            $film = $req->fetch();
+            $req->closeCursor();
+        } catch (\PDOException $pdoException) {
+            throw $pdoException;
+        }
+
+        return $film;
+    }

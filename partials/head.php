@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Liste des films - Mr Popcorn</title>
+        <title><?= isset($title) && !empty($title) ? $title : ''; ?> - Mr Popcorn</title>
 
         <!-- Seo -->
         <meta name="robots" content="index, follow">
-        <meta name="description" content="Consulter la liste de mes films">
+        <meta name="description" content="<?= isset($description) && !empty($description) ? $description : ''; ?>">
         <meta name="author" content="dwwm">
         <meta name="publisher" content="dwwm">
-        <meta name="keywords" content="Liste, films, Cinéma">
+        <meta name="keywords" content="<?= isset($keywords) && !empty($keywords) ? $keywords : ''; ?>">
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">

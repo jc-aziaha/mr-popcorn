@@ -25,7 +25,7 @@
 
 
     /**
-     * Cette fonction effectue une redirection vers la page renseignée, puis arrête arrête l'exécution du script.
+     * Cette fonction effectue une redirection vers la page renseignée, puis arrête l'exécution du script.
      *
      * @param string $pageName
      * 

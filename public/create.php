@@ -100,7 +100,11 @@ session_start();
 
     // Générer une chaine de caractère aléatoire (csrf_token: Jéton de sécurité)
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
+?>
+<?php
+    $title = "Nouveau film";
+    $description = "Ajouter un nouveau film à la liste";
+    $keywords = "Nouveau, film, Cinéma";
 ?>
 <?php include_once __DIR__ . "/../partials/head.php"; ?>
 

@@ -17,6 +17,11 @@ session_start();
 
     // dd($films);
 ?>
+<?php
+    $title = "Liste des films";
+    $description = "Consulter la liste de mes films";
+    $keywords = "Liste, films, Cinéma";
+?>
 <?php include_once __DIR__ . "/../partials/head.php"; ?>
 
     <?php include_once __DIR__ . "/../partials/nav.php"; ?>
@@ -49,7 +54,7 @@ session_start();
                                     <p><strong>Note</strong>: <?= isset($film['rating']) && $film['rating'] !== "" ? displayStars(htmlspecialchars((float) $film['rating'])) : "Non renseignée"; ?></p>
                                     <hr>
                                     <div class="d-flex justify-content-start align-items-center gap-2">
-                                        <a href="" class="btn btn-sm btn-dark">Voir détails</a>
+                                        <a href="show.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-dark">Voir détails</a>
                                         <a href="" class="btn btn-sm btn-secondary">Modifier</a>
                                         <a href="" class="btn btn-sm btn-danger">Supprimer</a>
                                     </div>
