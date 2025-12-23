@@ -19,4 +19,13 @@ body {
   font-style: normal;
 }
 
+.film-card {
+  transition: 1s;
+}
+
+.film-card:hover {
+  transform: scale(1.05);
+  transition: 1s;
+}
+
 
