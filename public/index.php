@@ -15,7 +15,7 @@ session_start();
     // 2. Effectuer la requête de sélection de tous les films
     $films = getFilms();
 
-    // dd($films);
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 <?php
     $title = "Liste des films";
@@ -54,9 +54,14 @@ session_start();
                                     <p><strong>Note</strong>: <?= isset($film['rating']) && $film['rating'] !== "" ? displayStars(htmlspecialchars((float) $film['rating'])) : "Non renseignée"; ?></p>
                                     <hr>
                                     <div class="d-flex justify-content-start align-items-center gap-2">
-                                        <a href="show.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-dark">Voir détails</a>
-                                        <a href="edit.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-secondary">Modifier</a>
-                                        <a href="" class="btn btn-sm btn-danger">Supprimer</a>
+                                        <a href="/show.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-dark">Voir détails</a>
+                                        <a href="/edit.php?film_id=<?= $film['id']; ?>" class="btn btn-sm btn-secondary">Modifier</a>
+                                        <form action="/delete.php" method="post">
+                                            <input type="hidden" name="honey_pot" value="">
+                                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                                            <input type="hidden" name="film_id" value="<?= $film['id']; ?>">
+                                            <input type="submit" class="btn btn-sm btn-danger" value="Supprimer" onclick="return confirm('Confirmer la suppression?');">
+                                        </form>
                                     </div>
                                 </article>
                             <?php endforeach ?>

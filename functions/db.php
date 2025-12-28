@@ -1,5 +1,28 @@
 <?php
 
+
+    /**
+     * Cette fonction récupère les variables d'environnement.
+     *
+     * @return array
+     */
+    function getDotEnvs(): array {
+        $path = __DIR__ . "/../.env";
+
+        if ( ! file_exists($path) ) {
+            throw new \LogicException("The dotenv file doesn't exist!!!");
+        }
+
+        $parserResponse = parse_ini_file($path);
+
+        if ( false === $parserResponse || empty($parserResponse) ) {
+            throw new \InvalidArgumentException("In the dotenv file missing values");
+        }
+
+        return $parserResponse;
+    }
+
+
     /**
      * Cette fonction permet d'établir une connexion avec la base de données.
      *
@@ -7,9 +30,11 @@
      */
     function connectToDb(): PDO {
 
-        $dsn = 'mysql:dbname=dwwm-mr-popcorn;host=127.0.0.1;port=3306';
-        $user = 'root';
-        $password = '';
+        $config = getDotEnvs();
+
+        $dsn        = "{$config['DB_CONNECTION']}:dbname={$config['DB_NAME']};host={$config['DB_HOST']};port={$config['DB_PORT']}";
+        $user       = "{$config['DB_USER']}";
+        $password   = "{$config['DB_PASSWORD']}";
 
         try {
             $db = new PDO($dsn, $user, $password);
@@ -112,6 +137,28 @@
             $req->bindValue(":comment", $data['comment']);
             $req->bindValue(":id", $filmId);
     
+            $req->execute();
+            $req->closeCursor();
+        } catch (\PDOException $pdoException) {
+            throw $pdoException;
+        }
+    }
+
+
+
+    /**
+     * Cette fonction permet de supprimer un film.
+     *
+     * @param integer $filmId
+     * 
+     * @return void
+     */
+    function deleteFilm(int $filmId): void {
+        $db = connectToDb();
+
+        try {
+            $req = $db->prepare("DELETE FROM film WHERE id=:id");
+            $req->bindValue(":id", $filmId);
             $req->execute();
             $req->closeCursor();
         } catch (\PDOException $pdoException) {

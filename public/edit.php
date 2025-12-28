@@ -49,7 +49,7 @@ session_start();
             empty($_SESSION['csrf_token'])  || empty($_POST['csrf_token'])  ||
             $_SESSION['csrf_token'] !== $_POST['csrf_token']
          ) {
-            redirectToPage("create");
+            redirectToPage("edit", $film['id']);
         }
         unset($_SESSION['csrf_token']);
         unset($_POST['csrf_token']);
@@ -57,7 +57,7 @@ session_start();
 
         // 7b. Protéger le serveur contre les robots spameurs
         if ( !isset($_POST['honey_pot']) || ("" !== $_POST['honey_pot']) ) {
-            redirectToPage("create");
+            redirectToPage("edit", $film['id']);
         }
         unset($_POST['honey_pot']);
 
@@ -104,7 +104,7 @@ session_start();
             
             // 9c. Effectuer une redirection vers la page de laquelle proviennent les informations,
             // puis arrêter l'exécution du script.
-            redirectToPage("create");
+            redirectToPage("edit", $film['id']);
         }
 
         // Dans le cas contraire,

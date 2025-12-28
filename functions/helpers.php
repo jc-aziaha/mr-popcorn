@@ -24,14 +24,23 @@
     }
 
 
+
     /**
      * Cette fonction effectue une redirection vers la page renseignée, puis arrête l'exécution du script.
+
      *
      * @param string $pageName
+     * @param null|string|integer|null $filmId
      * 
      * @return void
      */
-    function redirectToPage(string $pageName): void {
-        header("Location: $pageName.php");
+    function redirectToPage(string $pageName, null|string|int $filmId = null): void {
+
+        if ( isset($filmId) && !empty($filmId) ) {
+            header("Location: $pageName.php?film_id=$filmId");
+        } else {
+            header("Location: $pageName.php");
+        }
+
         die();
     }
